@@ -16,22 +16,19 @@ app.get('/', (req, res) => {
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-let threadId = null;
-
 app.post('/api/message', async (req, res) => {
   try {
-    const userMessage = req.body.message;
+    const { message, threadId: clientThreadId } = req.body;
+    let threadId = clientThreadId;
 
-    // Crear un thread solo si aún no existe
+    // Crear un thread si no lo mandó el frontend
     if (!threadId) {
       const thread = await openai.beta.threads.create();
       threadId = thread.id;
     }
 
-    // Crear una ejecución del asistente con el mensaje del usuario
     const run = await openai.beta.threads.runs.create(threadId, {
-      assistant_id: "asst_zW2PFxbqvj7MmHRjff65zZfo",
-      instructions: "Responde de manera clara y útil a cada mensaje del usuario manteniendo el contexto del trámite de licencias."
+      assistant_id: "asst_zW2PFxbqvj7MmHRjff65zZfo"
     });
 
     let completed = false;
@@ -47,8 +44,7 @@ app.post('/api/message', async (req, res) => {
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
-    // Responder al cliente
-    res.json({ reply: replyText });
+    res.json({ reply: replyText, threadId });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error procesando el mensaje' });

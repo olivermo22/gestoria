@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,215 +6,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gestoría Virtual - Asistente</title>
   <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #1e1e2f;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      min-height: 100vh;
-      color: #f0f0f0;
-      position: relative;
-    }
-
-    .background-logo {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 400px;
-      height: 400px;
-      transform: translate(-50%, -50%);
-      opacity: 0.05;
-      z-index: 0;
-      background: url('LOGO GESTORIAA.PNG') no-repeat center center;
-      background-size: contain;
-      pointer-events: none;
-    }
-
-    .corner-logo {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      width: 60px;
-      height: 60px;
-      background: url('LOGO GESTORIAA.PNG') no-repeat center center;
-      background-size: cover;
-      border-radius: 50%;
-      z-index: 10;
-    }
-
-    .chat-container {
-      width: 100%;
-      max-width: 600px;
-      background: #2c2c3c;
-      margin: 30px auto;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      position: relative;
-      z-index: 1;
-    }
-
-    header {
-      background: #111827;
-      color: white;
-      padding: 20px;
-      font-size: 1.4rem;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .messages {
-      flex-grow: 1;
-      padding: 20px;
-      overflow-y: auto;
-      background-color: #1e1e2f;
-    }
-
-    .message {
-      max-width: 80%;
-      padding: 12px 16px;
-      margin: 8px 0;
-      border-radius: 16px;
-      line-height: 1.4;
-      word-wrap: break-word;
-    }
-
-    .user {
-      background-color: #3b82f6;
-      color: white;
-      align-self: flex-end;
-      text-align: right;
-    }
-
-    .bot {
-      background-color: #374151;
-      color: #e5e7eb;
-      align-self: flex-start;
-      text-align: left;
-    }
-
-    .input-area {
-      display: flex;
-      border-top: 1px solid #444;
-      padding: 10px;
-      background-color: #2c2c3c;
-    }
-
-    .input-area input {
-      flex-grow: 1;
-      padding: 10px 15px;
-      border: 1px solid #555;
-      border-radius: 8px;
-      font-size: 1rem;
-      background-color: #1f2937;
-      color: #fff;
-      outline: none;
-    }
-
-    .input-area button {
-      padding: 10px 20px;
-      margin-left: 10px;
-      background: #3b82f6;
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .input-area button:hover {
-      background: #2563eb;
-    }
-
-    #startButton, #asesorButton {
-      background: #fbbf24;
-      color: #1f2937;
-      display: none;
-      margin: 20px auto;
-      padding: 12px 24px;
-      border: none;
-      border-radius: 10px;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: all 0.4s ease;
-      opacity: 0;
-      transform: scale(0.95);
-    }
-
-    #startButton.show, #asesorButton.show {
-      display: block;
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    #startButton {
-      background: #0f766e;
-      color: white;
-    }
-
-    #startButton:hover {
-      background: #115e59;
-    }
-
-    #asesorButton {
-      background: #ef4444;
-      color: white;
-    }
-
-    #asesorButton:hover {
-      background: #dc2626;
-    }
-
-    .typing {
-      font-style: italic;
-      color: #9ca3af;
-      margin: 5px 0 0 20px;
-      font-size: 0.95rem;
-      padding-left: 10px;
-    }
-
-    .dot-animate::after {
-      content: '.';
-      animation: dots 1.5s steps(3, end) infinite;
-    }
-
-    @keyframes dots {
-      0%   { content: '.'; }
-      33%  { content: '..'; }
-      66%  { content: '...'; }
-      100% { content: '.'; }
-    }
+    body { font-family: 'Segoe UI', sans-serif; background: #1e1e2f; color: #f0f0f0; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; }
+    .chat-container { width: 100%; max-width: 600px; background: #2c2c3c; margin: 30px auto; border-radius: 12px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); overflow: hidden; display: flex; flex-direction: column; }
+    header { background: #111827; color: white; padding: 20px; text-align: center; font-weight: bold; }
+    .messages { flex-grow: 1; padding: 20px; overflow-y: auto; background-color: #1e1e2f; }
+    .message { max-width: 80%; padding: 12px 16px; margin: 8px 0; border-radius: 16px; }
+    .user { background-color: #3b82f6; color: white; align-self: flex-end; text-align: right; }
+    .bot { background-color: #374151; color: #e5e7eb; align-self: flex-start; text-align: left; }
+    .input-area { display: flex; padding: 10px; background-color: #2c2c3c; }
+    .input-area input { flex-grow: 1; padding: 10px 15px; border: 1px solid #555; border-radius: 8px; background-color: #1f2937; color: #fff; }
+    .input-area button { margin-left: 10px; padding: 10px 20px; background: #3b82f6; border: none; border-radius: 8px; color: white; cursor: pointer; }
   </style>
 </head>
 <body>
-  <div class="corner-logo"></div>
-  <div class="background-logo"></div>
   <div class="chat-container">
     <header>💬 Gestoría Virtual - Asistente</header>
-    <div class="messages" id="messages"><div id="scroll-anchor"></div></div>
-    <div id="typing" class="typing dot-animate" style="display: none;">Escribiendo</div>
+    <div class="messages" id="messages"></div>
     <div class="input-area">
       <input type="text" id="userInput" placeholder="Escribe tu mensaje..." />
       <button onclick="sendMessage()">Enviar</button>
     </div>
-    <button id="startButton" onclick="window.location.href='https://whatsform.com/7i2sdc'">Iniciar trámite</button>
-    <button id="asesorButton" onclick="window.location.href='https://wa.link/qojyrf'">Hablar con un Asesor</button>
   </div>
 
   <script>
     const messagesContainer = document.getElementById('messages');
     const userInput = document.getElementById('userInput');
-    const startButton = document.getElementById('startButton');
-    const asesorButton = document.getElementById('asesorButton');
-    const typingIndicator = document.getElementById('typing');
-    let foundINE = false;
-    let foundTipoA = false;
+    let threadId = localStorage.getItem("threadId") || null;
 
     function addMessage(content, role) {
       const msg = document.createElement('div');
@@ -223,48 +41,28 @@
       messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
-    async function sendMessage(initialMessage = null) {
-      const input = initialMessage || userInput.value.trim();
+    async function sendMessage() {
+      const input = userInput.value.trim();
       if (!input) return;
       addMessage(input, 'user');
-      if (!initialMessage) userInput.value = '';
-
-      typingIndicator.style.display = 'block';
+      userInput.value = '';
 
       try {
         const res = await fetch('/api/message', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ message: input })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: input, threadId })
         });
 
         const data = await res.json();
-        const reply = data.reply;
-        addMessage(reply, 'bot');
+        threadId = data.threadId;
+        localStorage.setItem("threadId", threadId);
 
-        const replyLower = reply.toLowerCase();
-        if (replyLower.includes("ine")) foundINE = true;
-        if (replyLower.includes("tipo a")) foundTipoA = true;
-        if (foundINE && foundTipoA) {
-          startButton.classList.add('show');
-          asesorButton.classList.add('show');
-        }
+        addMessage(data.reply, 'bot');
       } catch (error) {
-        addMessage("Ocurrió un error al procesar tu solicitud. Inténtalo nuevamente.", 'bot');
-      } finally {
-        typingIndicator.style.display = 'none';
+        addMessage("❌ Error al procesar tu solicitud", 'bot');
       }
     }
-
-    window.onload = () => {
-      const mensajeInicial = "Quiero tramitar mi licencia de conducir de manera facil y rapida";
-      addMessage("¡Hola! Soy tu asistente virtual. Estoy aquí para ayudarte con tu trámite de licencia. 😊", 'bot');
-      setTimeout(() => {
-        userInput.value = mensajeInicial;
-      }, 1000);
-    };
   </script>
 </body>
 </html>
