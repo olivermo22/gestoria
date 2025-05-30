@@ -182,62 +182,9 @@
       border-radius: 8px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.4);
     }
-  
-    .background-logo {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 400px;
-      height: 400px;
-      transform: translate(-50%, -50%);
-      opacity: 0.05;
-      z-index: 0;
-      background: url('LOGO GESTORIAA.PNG') no-repeat center center;
-      background-size: contain;
-      pointer-events: none;
-    }
-
-    .corner-logo {
-      position: fixed;
-      top: 15px;
-      left: 15px;
-      width: 60px;
-      height: 60px;
-      background: url('LOGO GESTORIAA.PNG') no-repeat center center;
-      background-size: cover;
-      border-radius: 50%;
-      z-index: 10;
-    }
-
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-size: 1.1rem;
-      cursor: pointer;
-      padding: 8px 16px;
-      border: 2px solid transparent;
-      border-radius: 8px;
-      transition: all 0.3s ease;
-    }
-
-    nav a:hover {
-      background-color: #374151;
-      border-color: #3b82f6;
-    }
-
-    nav a.active-tab {
-      background-color: #2563eb;
-      border-color: #3b82f6;
-    }
-
-</style>
+  </style>
 </head>
 <body>
-
-  <div class="corner-logo"></div>
-  <div class="background-logo"></div>
-
   <nav>
     <a onclick="showSection('asistente')">Asistente</a>
     <a onclick="showSection('costos')">Costos Licencias</a>
@@ -264,20 +211,7 @@
   </div>
 
   <script>
-    
     function showSection(id) {
-      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-
-      document.querySelectorAll('nav a').forEach(tab => tab.classList.remove('active-tab'));
-      const tabMap = {
-        'asistente': 0,
-        'costos': 1,
-        'requisitos': 2
-      };
-      document.querySelectorAll('nav a')[tabMap[id]].classList.add('active-tab');
-    }
-
       document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
