@@ -1,3 +1,4 @@
+
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -9,45 +10,45 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+let threadId = null;
+
 app.post('/api/message', async (req, res) => {
   try {
-    const { message, thread_id } = req.body;
+    const userMessage = req.body.message;
 
-    let threadId = thread_id;
+    // Crear un thread solo si aún no existe
     if (!threadId) {
       const thread = await openai.beta.threads.create();
       threadId = thread.id;
     }
 
-    await openai.beta.threads.messages.create(threadId, {
-      role: "user",
-      content: message,
-    });
-
+    // Crear una ejecución del asistente con el mensaje del usuario
     const run = await openai.beta.threads.runs.create(threadId, {
       assistant_id: "asst_zW2PFxbqvj7MmHRjff65zZfo",
+      instructions: "Responde de manera clara y útil a cada mensaje del usuario manteniendo el contexto del trámite de licencias."
     });
 
     let completed = false;
     let replyText = '...';
+
     while (!completed) {
       const runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
       if (runStatus.status === 'completed') {
         const messages = await openai.beta.threads.messages.list(threadId);
-        const lastMessage = messages.data.find(m => m.role === 'assistant');
-        replyText = lastMessage?.content[0]?.text?.value || '...';
+        replyText = messages.data[0].content[0].text.value;
         completed = true;
       }
       await new Promise(resolve => setTimeout(resolve, 1000));
     }
 
-    res.json({ reply: replyText, thread_id: threadId });
+    // Responder al cliente
+    res.json({ reply: replyText });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error procesando el mensaje' });
