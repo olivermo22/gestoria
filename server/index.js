@@ -18,14 +18,21 @@ const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 app.post('/api/message', async (req, res) => {
   try {
     const userMessage = req.body.message;
+
     const thread = await openai.beta.threads.create();
+
+    await openai.beta.threads.messages.create(thread.id, {
+      role: "user",
+      content: userMessage,
+    });
+
     const run = await openai.beta.threads.runs.create(thread.id, {
-      assistant_id: "asst_zW2PFxbqvj7MmHRjff65zZfo",
-      instructions: userMessage,
+      assistant_id: "asst_zW2PFxbqvj7MmHRjff65zZfo"
     });
 
     let completed = false;
     let replyText = '...';
+
     while (!completed) {
       const runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
       if (runStatus.status === 'completed') {
