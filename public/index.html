@@ -31,11 +31,14 @@
     }
 
     .section {
-      display: none;
-      padding: 20px;
-      max-width: 700px;
-      margin: auto;
-    }
+  display: none;
+  padding: 30px 20px;
+  max-width: 700px;
+  margin: 30px auto;
+  background-color: #2c2c3c;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
 
     .section.active {
       display: block;
@@ -199,7 +202,7 @@
 
     .corner-logo {
       position: fixed;
-      bottom: 15px;
+      top: 15px;
       left: 15px;
       width: 60px;
       height: 60px;
@@ -231,12 +234,22 @@
       border-color: #3b82f6;
     }
 
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 5px #0f766e; }
+      50% { box-shadow: 0 0 20px #0f766e; }
+      100% { box-shadow: 0 0 5px #0f766e; }
+    }
+
+    #startButton.glow {
+      animation: glow 1.5s infinite;
+    }
+
 </style>
 </head>
 <body>
 
-  <div class="corner-logo"></div>
-  <div class="background-logo"></div>
+    <div class="background-logo"></div>
 
   <nav>
     <a onclick="showSection('asistente')" class="active-tab">Asistente</a>
@@ -246,7 +259,25 @@
 
   <div id="asistente" class="section active">
     <div class="chat-container">
-      <header>💬 Gestoría Virtual - Asistente</header>
+      
+
+<header style="
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: #111827;
+  padding: 16px 20px;
+  border-bottom: 2px solid #3b82f6;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: white;
+">
+  <img src="LOGO GESTORIAA.PNG" alt="Logo" style="width: 48px; height: 48px; border-radius: 50%;" />
+  <span>Gestoría Virtual - Asistente</span>
+</header>
+
+
       <div class="messages" id="messages"><div id="scroll-anchor"></div></div>
       <div id="typing" class="typing dot-animate" style="display: none;">Escribiendo</div>
       <div class="input-area">
@@ -327,7 +358,7 @@
         if (replyLower.includes("ine")) foundINE = true;
         if (replyLower.includes("tipo")) foundTipo = true;
         if (foundINE && foundTipo) {
-          startButton.classList.add('show');
+          startButton.classList.add('show'); startButton.classList.add('glow');
           asesorButton.classList.add('show');
         }
       } catch (error) {
