@@ -35,7 +35,7 @@ app.post('/api/message', async (req, res) => {
     });
 
     const run = await openai.beta.threads.runs.create(thread_id, {
-      assistant_id: process.env.ASSISTANT_ID
+      assistant_id: "asst_zW2PFxbqvj7MmHRjff65zZfo"
     });
 
     let completed = false;
