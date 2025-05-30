@@ -15,28 +15,34 @@ app.get('/', (req, res) => {
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
+// Creamos el hilo una sola vez para mantener la conversación
+let threadId = null;
+
+async function getThreadId() {
+  if (!threadId) {
+    const thread = await openai.beta.threads.create();
+    threadId = thread.id;
+  }
+  return threadId;
+}
+
 app.post('/api/message', async (req, res) => {
   try {
     const userMessage = req.body.message;
+    const threadId = await getThreadId();
 
-    const thread = await openai.beta.threads.create();
-
-    await openai.beta.threads.messages.create(thread.id, {
-      role: "user",
-      content: userMessage,
-    });
-
-    const run = await openai.beta.threads.runs.create(thread.id, {
-      assistant_id: "asst_zW2PFxbqvj7MmHRjff65zZfo"
+    const run = await openai.beta.threads.runs.create(threadId, {
+      assistant_id: "asst_zW2PFxbqvj7MmHRjff65zZfo",
+      instructions: "Eres un asistente de Gestoría Virtual. Brinda respuestas claras y precisas sobre trámites de licencias.",
     });
 
     let completed = false;
     let replyText = '...';
 
     while (!completed) {
-      const runStatus = await openai.beta.threads.runs.retrieve(thread.id, run.id);
+      const runStatus = await openai.beta.threads.runs.retrieve(threadId, run.id);
       if (runStatus.status === 'completed') {
-        const messages = await openai.beta.threads.messages.list(thread.id);
+        const messages = await openai.beta.threads.messages.list(threadId);
         replyText = messages.data[0].content[0].text.value;
         completed = true;
       }
@@ -50,7 +56,7 @@ app.post('/api/message', async (req, res) => {
   }
 });
 
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Servidor activo en http://localhost:${PORT}`);
 });
