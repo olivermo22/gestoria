@@ -313,8 +313,8 @@
 
         const replyLower = reply.toLowerCase();
         if (replyLower.includes("ine")) foundINE = true;
-        if (replyLower.includes("tipo a")) foundTipoA = true;
-        if (foundINE && foundTipoA) {
+        if (replyLower.includes("tipo")) foundTipo = true;
+        if (foundINE && foundTipo) {
           startButton.classList.add('show');
           asesorButton.classList.add('show');
         }
