@@ -33,7 +33,6 @@ app.post('/api/message', async (req, res) => {
 
     const run = await openai.beta.threads.runs.create(threadId, {
       assistant_id: "asst_zW2PFxbqvj7MmHRjff65zZfo",
-      instructions: "Eres un asistente de Gestoría Virtual. Brinda respuestas claras y precisas sobre trámites de licencias.",
     });
 
     let completed = false;
