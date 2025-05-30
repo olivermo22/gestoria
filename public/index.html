@@ -209,6 +209,28 @@
       z-index: 10;
     }
 
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 8px 16px;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: #374151;
+      border-color: #3b82f6;
+    }
+
+    nav a.active-tab {
+      background-color: #2563eb;
+      border-color: #3b82f6;
+    }
+
 </style>
 </head>
 <body>
@@ -242,7 +264,20 @@
   </div>
 
   <script>
+    
     function showSection(id) {
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+
+      document.querySelectorAll('nav a').forEach(tab => tab.classList.remove('active-tab'));
+      const tabMap = {
+        'asistente': 0,
+        'costos': 1,
+        'requisitos': 2
+      };
+      document.querySelectorAll('nav a')[tabMap[id]].classList.add('active-tab');
+    }
+
       document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
       document.getElementById(id).classList.add('active');
     }
