@@ -38,15 +38,6 @@
   background-color: #2c2c3c;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  opacity: 0;
-  transform: scale(0.98);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.section.active {
-  display: block;
-  opacity: 1;
-  transform: scale(1);
 }
 
     .section.active {
@@ -399,8 +390,8 @@ header {
         if (replyLower.includes("ine")) foundINE = true;
         if (replyLower.includes("tipo")) foundTipo = true;
         if (foundINE && foundTipo) {
-          showStartButton();
-          asesorButton.classList.add('show');
+          startButton.classList.add('show'); startButton.classList.add('glow');
+          asesorButton.classList.add('show'); asesorButton.classList.add('glow');
         }
       } catch (error) {
         addMessage("Ocurrió un error al procesar tu solicitud. Inténtalo nuevamente.", 'bot');
@@ -409,17 +400,7 @@ header {
       }
     }
 
-    
-    const sonidoTramite = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_4ab5c5f89d.mp3");
-
-    function showStartButton() {
-      startButton.classList.add('show');
-      startButton.classList.add('glow');
-      sonidoTramite.play().catch(() => {});
-    }
-
-
-window.onload = () => {
+    window.onload = () => {
       showSection('asistente');
       const mensajeInicial = "Quiero tramitar mi licencia de conducir de manera facil y rapida";
       addMessage("¡Hola! Soy tu asistente virtual. Estoy aquí para ayudarte con tu trámite de licencia. 😊", 'bot');
