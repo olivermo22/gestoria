@@ -4,42 +4,38 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Redireccionando a WhatsApp...</title>
-  <meta http-equiv="refresh" content="0; url=https://wa.link/tbxusc" />
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-H4PDPM2F5V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-H4PDPM2F5V');
+    gtag('event', 'whatsapp_redirect', {
+      'event_category': 'Redirección',
+      'event_label': 'WhatsApp'
+    });
+  </script>
+
+  <!-- Redirección automática a WhatsApp -->
+  <meta http-equiv="refresh" content="1; url=https://wa.link/tbxusc" />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      color: #333;
+      background-color: #111827;
+      color: #f9fafb;
+      font-family: sans-serif;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
-      margin: 0;
-    }
-    .mensaje {
       text-align: center;
-    }
-    .spinner {
-      margin-top: 20px;
-      width: 40px;
-      height: 40px;
-      border: 4px solid #58db4f;
-      border-top: 4px solid transparent;
-      border-radius: 50%;
-      animation: girar 1s linear infinite;
-      display: inline-block;
-    }
-    @keyframes girar {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
-  <div class="mensaje">
-    <h2>Redireccionando a WhatsApp...</h2>
-    <div class="spinner"></div>
-    <p>Si no eres redirigido automáticamente, <a href="https://wa.link/tbxusc">haz clic aquí</a>.</p>
-  </div>
+  <h2>Redirigiendo a WhatsApp...</h2>
+  <p>Si no eres redirigido automáticamente, haz clic <a href="https://wa.link/tbxusc" style="color: #58db4f; font-weight: bold;">aquí</a>.</p>
 </body>
 </html>
